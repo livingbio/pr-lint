@@ -1,3 +1,2 @@
 # pr-lint
 
-TEST
