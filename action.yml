@@ -1,0 +1,34 @@
+name: PR Lint
+description: A custom action to run pr-lint on PR titles
+author: lucemia
+inputs:
+  github_token:
+    description: "GitHub token"
+    required: true
+  github_repository:
+    description: "GitHub repository"
+    required: true
+  pr_number:
+    description: "Pull request number"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install pr-lint
+      run: pip install poetry && poetry install
+      shell: bash
+      working-directory: ${{ github.action_path }}
+
+    - name: Run pr-lint on PR title
+      run: poetry run pr-lint
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GITHUB_REPOSITORY: ${{ inputs.github_repository }}
+        PR_NUMBER: ${{ inputs.pr_number }}
+      shell: bash
+      working-directory: ${{ github.action_path }}
