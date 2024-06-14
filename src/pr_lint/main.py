@@ -79,10 +79,6 @@ def main() -> None:
     assert len(type_labels) == 1, "There should be exactly one Type label"
 
     # format new title as [Type Emoji][Title][Other Emojis]
-
-    import pdb
-
-    pdb.set_trace()
     type_emoji = "".join(extract_emoji(type_labels[0].name))
     other_emojis = set()
     for label in other_labels:
