@@ -9,17 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - id: pr-lint
+        uses: livingbio/pr-lint@fix-10-compose-action
         with:
-          python-version: "3.x"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repository: ${{ github.repository }}
+          pr_number: ${{ github.event.number }}
 
-      - name: Install pr-lint
-        run: pip install pr-lint
-
-      - name: Run Commitlint on PR title
-        run: pr-lint
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.number }}
