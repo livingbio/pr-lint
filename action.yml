@@ -22,6 +22,7 @@ runs:
     - name: Install pr-lint
       run: pip install poetry && poetry install
       shell: bash
+      working-directory: ${{ github.action_path }}
 
     - name: Run pr-lint on PR title
       run: poetry run pr-lint
@@ -30,3 +31,4 @@ runs:
         GITHUB_REPOSITORY: ${{ inputs.github_repository }}
         PR_NUMBER: ${{ inputs.pr_number }}
       shell: bash
+      working-directory: ${{ github.action_path }}
