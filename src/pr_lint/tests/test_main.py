@@ -29,6 +29,7 @@ def test_clean_title(title: str, snapshot: SnapshotAssertion) -> None:
     [
         ("🐛fix: correct typo🐛", {"🐛"}),
         ("🚀feature(add-new): add a new feature🚀", {"🚀"}),
+        ("✨Type: Feature", {"✨"}),
         ("bug: fix issue 🐞", {"🐞"}),
         ("no type", set()),
         ("not an emoji prefix: but contains 🚀 emoji", {"🚀"}),

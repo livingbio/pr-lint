@@ -12,6 +12,8 @@ emoji_pattern = re.compile(
     "\U0001F1E0-\U0001F1FF"  # Flags (iOS)
     "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
+    "\u2600-\u26FF"  # Miscellaneous Symbols
+    "\u2700-\u27BF"  # Dingbats
     "]+"
 )
 
@@ -78,6 +80,9 @@ def main() -> None:
 
     # format new title as [Type Emoji][Title][Other Emojis]
 
+    import pdb
+
+    pdb.set_trace()
     type_emoji = "".join(extract_emoji(type_labels[0].name))
     other_emojis = set()
     for label in other_labels:
