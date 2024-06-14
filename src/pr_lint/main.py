@@ -19,6 +19,15 @@ app = typer.Typer()
 
 
 def extract_emoji(string: str) -> set[str]:
+    """
+    Extracts emojis from a string
+
+    Args:
+        string: The string to extract emojis from
+
+    Returns:
+        A set of emojis
+    """
     return set(emoji_pattern.findall(string))
 
 
