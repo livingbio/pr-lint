@@ -12,6 +12,8 @@ emoji_pattern = re.compile(
     "\U0001F1E0-\U0001F1FF"  # Flags (iOS)
     "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
+    "\u2600-\u26FF"  # Miscellaneous Symbols
+    "\u2700-\u27BF"  # Dingbats
     "]+"
 )
 
@@ -19,6 +21,15 @@ app = typer.Typer()
 
 
 def extract_emoji(string: str) -> set[str]:
+    """
+    Extracts emojis from a string
+
+    Args:
+        string: The string to extract emojis from
+
+    Returns:
+        A set of emojis
+    """
     return set(emoji_pattern.findall(string))
 
 
@@ -68,7 +79,6 @@ def main() -> None:
     assert len(type_labels) == 1, "There should be exactly one Type label"
 
     # format new title as [Type Emoji][Title][Other Emojis]
-
     type_emoji = "".join(extract_emoji(type_labels[0].name))
     other_emojis = set()
     for label in other_labels:
