@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "pr-lint"
+version = "0.1.0"
+description = ""
+authors = ["lucemia <lucemia@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "pr_lint", from = "src" }]
+include = ["pr_lint/py.typed"]
+exclude = ["**/tests"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygithub = "*"
+typer = "*"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+syrupy = "*"
+pre-commit = "^3.7.1"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+pattern = "default-unprefixed"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+
+[tool.poetry.scripts]
+pr-lint = "pr_lint.main:app"
