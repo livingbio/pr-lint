@@ -1,6 +1,7 @@
 import os
 import re
 
+import typer
 from github import Github, Label
 
 emoji_pattern = re.compile(
@@ -14,6 +15,8 @@ emoji_pattern = re.compile(
     "]+"
 )
 
+app = typer.Typer()
+
 
 def extract_emoji(string: str) -> set[str]:
     return set(emoji_pattern.findall(string))
@@ -25,16 +28,22 @@ def clean_title(input_string: str) -> str:
     input_string = input_string.strip().lstrip("".join(extract_emoji(input_string)))
     input_string = input_string.strip()
 
+    # TODO:
+    # rewrite title's type and scope?
     # remove starting type and scope [\w]+:
     # input_string = re.sub(r"^[\w\-\(\)\.]+:", "", input_string).strip()
     return input_string
 
 
+@app.command()
 def main() -> None:
     token = os.getenv("GITHUB_TOKEN")
     repo_name = os.getenv("GITHUB_REPOSITORY")
     pr_number = os.getenv("PR_NUMBER")
-    assert token and repo_name and pr_number, "Missing environment variables"
+
+    assert token, "Missing GITHUB_TOKEN environment variable"
+    assert repo_name, "Missing GITHUB_REPOSITORY environment variable"
+    assert pr_number, "Missing PR_NUMBER environment variable"
 
     # Authenticate to GitHub
     g = Github(token)
@@ -58,6 +67,8 @@ def main() -> None:
 
     assert len(type_labels) == 1, "There should be exactly one Type label"
 
+    # format new title as [Type Emoji][Title][Other Emojis]
+
     type_emoji = "".join(extract_emoji(type_labels[0].name))
     other_emojis = set()
     for label in other_labels:
@@ -70,7 +81,9 @@ def main() -> None:
     if new_title != pr.title:
         pr.edit(title=new_title)
         print(f"Title changed from {pr.title} to {new_title}")
+    else:
+        print("Title is already correctly formatted")
 
 
 if __name__ == "__main__":
-    main()
+    app()

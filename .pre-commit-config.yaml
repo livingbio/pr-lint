@@ -55,6 +55,7 @@ repos:
           - "pygithub"
           - "pytest"
           - "syrupy"
+          - "typer"
         args:
           [
             --pretty,
