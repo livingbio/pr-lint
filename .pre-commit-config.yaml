@@ -1,0 +1,70 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: "__snapshots__/"
+      - id: fix-encoding-pragma
+        args: [--remove]
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+        exclude: "__snapshots__/"
+      - id: pretty-format-json
+        args: [--autofix]
+        exclude: "__snapshots__/"
+  # this is not technically always safe but usually is
+  # use comments `# isort: off` and `# isort: on` to disable/re-enable isort
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--line-length=120, --profile=black]
+
+  # this is slightly dangerous because python imports have side effects
+  # and this tool removes unused imports, which may be providing
+  # necessary side effects for the code to run
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+      - id: autoflake
+        args:
+          - "--in-place"
+          - "--expand-star-imports"
+          - "--remove-duplicate-keys"
+          - "--remove-unused-variables"
+          - "--remove-all-unused-imports"
+
+  - repo: https://github.com/psf/black
+    rev: 24.1.0
+    hooks:
+      - id: black
+        args: [--line-length=120, --exclude=""]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.8.0"
+    hooks:
+      - id: mypy
+        exclude: migrations/|commands/|scripts/|sandbox/|samples|sdk
+        additional_dependencies:
+          - "pygithub"
+          - "pytest"
+          - "syrupy"
+        args:
+          [
+            --pretty,
+            --show-error-codes,
+            --implicit-optional,
+            --follow-imports=silent,
+            --warn-redundant-casts,
+            --warn-unused-ignores,
+            --disallow-any-generics,
+            --check-untyped-defs,
+            --no-implicit-reexport,
+            --disallow-untyped-defs,
+          ]
