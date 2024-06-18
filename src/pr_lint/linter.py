@@ -16,7 +16,7 @@ def lint(pr: PullRequest) -> None:
         pr: The pull request to lint
     """
 
-    pr_owners = re.findall(r"(@[\w]+)$", pr.title.strip())
+    pr_owners = re.findall(r"(@[\w-]+)$", pr.title.strip())
     assert pr_owners, "PR title should end with a GitHub username"
     # FIXME: for some reason the has_in_collaborators method is not working
     # pr_owner = pr_owners[0][1:]
