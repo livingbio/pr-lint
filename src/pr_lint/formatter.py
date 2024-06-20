@@ -1,5 +1,7 @@
 import re
+from typing import Iterable
 
+from github.Label import Label
 from github.PullRequest import PullRequest
 
 emoji_pattern = re.compile(
@@ -26,16 +28,24 @@ def format(pr: PullRequest) -> None:
         pr: The pull request to format
     """
 
-    labels = pr.get_labels()
+    labels: Iterable[Label] = pr.get_labels()
     # remove all emojis from the left of title
     cleaned_title = pr.title.lstrip("".join(emoji_pattern.findall(pr.title))).strip()
 
-    emojis = set()
+    # Sort the labels in the following order
+    # any label with "Impact:"
+    # any label with "Type:"
+    # other labels
+    labels = sorted(labels, key=lambda label: ("Impact:" in label.name, "Type:" in label.name), reverse=True)
+
+    emojis = []
     for label in labels:
         if _emjojis := emoji_pattern.findall(label.name):
-            emojis.update(_emjojis)
+            for _emjoin in _emjojis:
+                if _emjoin not in emojis:
+                    emojis.append(_emjoin)
 
     new_title = f"{''.join(emojis)} {cleaned_title}"
     if new_title != pr.title:
-        pr.edit(title=new_title)
         print(f"Updated PR title: {pr.title} -> {new_title}")
+        pr.edit(title=new_title)
