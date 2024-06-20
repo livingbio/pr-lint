@@ -47,5 +47,5 @@ def format(pr: PullRequest) -> None:
 
     new_title = f"{''.join(emojis)} {cleaned_title}"
     if new_title != pr.title:
-        pr.edit(title=new_title)
         print(f"Updated PR title: {pr.title} -> {new_title}")
+        pr.edit(title=new_title)
