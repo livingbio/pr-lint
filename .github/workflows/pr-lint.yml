@@ -10,9 +10,8 @@ jobs:
 
     steps:
       - id: pr-lint
-        uses: livingbio/pr-lint@fix-10-compose-action
+        uses: livingbio/pr-lint@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_repository: ${{ github.repository }}
           pr_number: ${{ github.event.number }}
-

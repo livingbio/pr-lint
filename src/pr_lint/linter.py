@@ -1,7 +1,7 @@
-import re
-
 from github.Label import Label
 from github.PullRequest import PullRequest
+
+from .utils import get_owner
 
 
 def lint(pr: PullRequest) -> None:
@@ -15,9 +15,9 @@ def lint(pr: PullRequest) -> None:
     Args:
         pr: The pull request to lint
     """
+    owner = get_owner(pr)
+    assert owner, "PR title should end with a GitHub username"
 
-    pr_owners = re.findall(r"(@[\w-]+)$", pr.title.strip())
-    assert pr_owners, "PR title should end with a GitHub username"
     # FIXME: for some reason the has_in_collaborators method is not working
     # pr_owner = pr_owners[0][1:]
     # assert repo.has_in_collaborators(pr_owner), f"{pr_owner} is not a collaborator"
