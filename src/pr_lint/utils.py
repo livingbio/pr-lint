@@ -34,6 +34,23 @@ def extract_owner_from_title(title: str) -> str | None:
     return None
 
 
+def extract_reference_number(title: str) -> str | None:
+    """
+    Extract the reference number from the title.
+
+    Args:
+        title: The title of the pull request
+
+    Returns:
+        The reference number of the pull request
+    """
+    pr_number = re.findall(r"\(#(\d+)\)", title.strip())
+    if pr_number:
+        return pr_number[0]
+
+    return None
+
+
 def get_owner(pr: PullRequest) -> str | None:
     """
     Get the owner of a pull request.

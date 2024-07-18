@@ -1,7 +1,7 @@
 from github.Label import Label
 from github.PullRequest import PullRequest
 
-from .utils import get_owner
+from .utils import extract_reference_number, get_owner
 
 
 def lint(pr: PullRequest) -> None:
@@ -37,3 +37,10 @@ def lint(pr: PullRequest) -> None:
     assert len(impact_labels) == 1, "There should be exactly one Impact label"
 
     # TODO: check if the PR title is in the correct format (e.g. commitlint convention)
+
+    # Check the PR fit the hotfix format
+    # get the base branch name of the PR
+    base_branch = pr.base.ref
+    if base_branch.startswith("stable/"):
+        # it is a hotfix
+        assert extract_reference_number(pr.title), "Hotfix PR should have a reference number"
