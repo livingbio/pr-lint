@@ -19,7 +19,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
 syrupy = "*"
-pre-commit = "^4.0.0"
+pre-commit = "^4.0.1"
 
 [tool.poetry-dynamic-versioning]
 enable = true
