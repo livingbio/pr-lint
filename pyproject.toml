@@ -17,7 +17,7 @@ typer = "*"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.3"
+pytest = "^8.3.4"
 syrupy = "*"
 pre-commit = "^4.0.1"
 
