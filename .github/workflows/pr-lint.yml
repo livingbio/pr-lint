@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - id: pr-lint
-        uses: livingbio/pr-lint@main
+        uses: livingbio/pr-lint@98-feat-add-support-for-poetry-2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_repository: ${{ github.repository }}
