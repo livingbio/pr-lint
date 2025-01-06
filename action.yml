@@ -20,7 +20,7 @@ runs:
         python-version: "3.x"
 
     - name: Install pr-lint
-      run: pip install poetry && poetry install
+      run: pip install poetry && poetry sync
       shell: bash
       working-directory: ${{ github.action_path }}
 

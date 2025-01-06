@@ -1,9 +1,16 @@
-[tool.poetry]
+[project]
 name = "pr-lint"
 version = "0.1.0"
 description = ""
-authors = ["lucemia <lucemia@gmail.com>"]
+authors = [
+    { name = "lucemia", email = "lucemia@gmail.com" },
+]
 readme = "README.md"
+
+[project.scripts]
+pr-lint = "pr_lint.main:app"
+
+[tool.poetry]
 packages = [{ include = "pr_lint", from = "src" }]
 include = ["pr_lint/py.typed"]
 exclude = ["**/tests"]
@@ -28,7 +35,3 @@ pattern = "default-unprefixed"
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
-
-
-[tool.poetry.scripts]
-pr-lint = "pr_lint.main:app"
