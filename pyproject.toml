@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = [
     { name = "lucemia", email = "lucemia@gmail.com" },
-] 
+]
 readme = "README.md"
 
 [project.scripts]
