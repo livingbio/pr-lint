@@ -1,4 +1,4 @@
-from typing import Iterable
+from collections.abc import Iterable
 
 from github.Label import Label
 from github.PullRequest import PullRequest

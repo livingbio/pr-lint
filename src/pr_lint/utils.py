@@ -1,18 +1,18 @@
 import re
-from typing import Iterable
+from collections.abc import Iterable
 
 from github.PullRequest import PullRequest
 
 emoji_pattern = (
     "["
-    "\U0001F600-\U0001F64F"  # Emoticons
-    "\U0001F300-\U0001F5FF"  # Symbols & pictographs
-    "\U0001F680-\U0001F6FF"  # Transport & map symbols
-    "\U0001F1E0-\U0001F1FF"  # Flags (iOS)
-    "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
-    "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
-    "\u2600-\u26FF"  # Miscellaneous Symbols
-    "\u2700-\u27BF"  # Dingbats
+    "\U0001f600-\U0001f64f"  # Emoticons
+    "\U0001f300-\U0001f5ff"  # Symbols & pictographs
+    "\U0001f680-\U0001f6ff"  # Transport & map symbols
+    "\U0001f1e0-\U0001f1ff"  # Flags (iOS)
+    "\U0001f900-\U0001f9ff"  # Supplemental Symbols and Pictographs
+    "\U0001fa70-\U0001faff"  # Symbols and Pictographs Extended-A
+    "\u2600-\u26ff"  # Miscellaneous Symbols
+    "\u2700-\u27bf"  # Dingbats
     "]"
 )
 
