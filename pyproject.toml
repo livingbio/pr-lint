@@ -6,6 +6,21 @@ authors = [
     { name = "lucemia", email = "lucemia@gmail.com" },
 ]
 readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pygithub==2.5.0",
+    "typer==0.15.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "syrupy==4.8.0",
+    "pre-commit==4.0.1",
+]
+
+[tool.uv]
+package = true
 
 [project.scripts]
 pr-lint = "pr_lint.main:app"
