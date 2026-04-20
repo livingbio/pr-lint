@@ -1,37 +1,37 @@
 [project]
 name = "pr-lint"
-version = "0.1.0"
+dynamic = ["version"]
 description = ""
 authors = [
     { name = "lucemia", email = "lucemia@gmail.com" },
 ]
 readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pygithub==2.5.0",
+    "typer==0.15.1",
+]
 
 [project.scripts]
 pr-lint = "pr_lint.main:app"
 
-[tool.poetry]
-packages = [{ include = "pr_lint", from = "src" }]
-include = ["pr_lint/py.typed"]
-exclude = ["**/tests"]
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "syrupy==4.8.0",
+    "pre-commit==4.0.1",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-pygithub = "*"
-typer = "*"
+[tool.uv]
+package = true
 
-[tool.poetry.group.dev]
-optional = true
+[tool.hatch.build.targets.wheel]
+packages = ["src/pr_lint"]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.4"
-syrupy = "*"
-pre-commit = "^4.0.1"
-
-[tool.poetry-dynamic-versioning]
-enable = true
-pattern = "default-unprefixed"
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.0.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
-build-backend = "poetry_dynamic_versioning.backend"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
