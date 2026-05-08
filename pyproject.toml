@@ -19,7 +19,7 @@ pr-lint = "pr_lint.main:app"
 dev = [
     "pytest==9.0.3",
     "syrupy==5.1.0",
-    "prek>=0.1",
+    "prek>=0.3.13",
 ]
 
 [tool.uv]
